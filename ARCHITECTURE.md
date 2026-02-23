@@ -57,7 +57,7 @@ s3://fintech-data-lake/
 
 ```mermaid
 flowchart TD
-    subgraph Security Layer
+    subgraph Security_Layer ["Security Layer"]
         IAM[AWS IAM Roles / RBAC]
         KMS[AWS KMS Encryption]
         Secrets[AWS Secrets Manager]
@@ -68,30 +68,30 @@ flowchart TD
         REST[CoinCap v3 REST API]
     end
 
-    subgraph Ingestion Layer
-        LambdaPoll[AWS Lambda\nIngestion]
+    subgraph Ingestion_Layer ["Ingestion Layer"]
+        LambdaPoll["AWS Lambda Ingestion"]
         Kinesis[AWS Kinesis Data Streams]
     end
 
-    subgraph Processing DQ and Storage
-        S3Raw[(Amazon S3\nRaw Zone)]
-        S3Quarantine[(Amazon S3\nQuarantine Zone)]
-        S3Proc[(Amazon S3\nProcessed Zone)]
+    subgraph Processing_DQ_Storage ["Processing, DQ & Storage"]
+        S3Raw[("Amazon S3 Raw Zone")]
+        S3Quarantine[("Amazon S3 Quarantine Zone")]
+        S3Proc[("Amazon S3 Processed Zone")]
         
-        GlueBatch[AWS Glue Spark\nBatch Transforms]
-        DQ[Data Quality\nGate Check]
-        GlueCat[AWS Glue Catalog\nMetadata Registry]
+        GlueBatch["AWS Glue Spark Batch Transforms"]
+        DQ["Data Quality Gate Check"]
+        GlueCat["AWS Glue Catalog Metadata Registry"]
         
-        LambdaRT[AWS Lambda\nReal-time Engine]
-        DLQ[Amazon SQS\nDead Letter Queue]
-        DynamoDB[(DynamoDB\nThreshold Config)]
+        LambdaRT["AWS Lambda Real-time Engine"]
+        DLQ["Amazon SQS Dead Letter Queue"]
+        DynamoDB[("DynamoDB Threshold Config")]
     end
 
-    subgraph Serving and Orchestration
-        MWAA[Amazon MWAA\nOrchestrator]
-        Redshift[Amazon Redshift\nFast Dashboards]
-        Athena[Amazon Athena\nAd-Hoc Exploration]
-        Alerts[Alert Service\nSNS/PagerDuty]
+    subgraph Serving_Orchestration ["Serving & Orchestration"]
+        MWAA["Amazon MWAA Orchestrator"]
+        Redshift["Amazon Redshift Fast Dashboards"]
+        Athena["Amazon Athena Ad-Hoc Exploration"]
+        Alerts["Alert Service SNS/PagerDuty"]
     end
 
     %% Ingestion Flow
@@ -121,10 +121,9 @@ flowchart TD
     S3Proc --> Athena
 
     %% Orchestration Paths
-    MWAA -->|Manages Sensors & DAGs| LambdaPoll
+    MWAA -->|Manages| LambdaPoll
     MWAA -->|Triggers| GlueBatch
     MWAA -->|Enforces| DQ
-    MWAA -->|Manages| Backfill_DAGs
 ```
 
 ## 7. Justification of Trade-offs (Cost vs. Latency)
