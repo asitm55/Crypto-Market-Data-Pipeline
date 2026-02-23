@@ -8,10 +8,10 @@ This phase takes the raw, partitioned Parquet data generated in Phase 1 and appl
 ```mermaid
 flowchart TD
     Raw[(Raw Parquet Data)] --> Loader[DataLoader]
-    Loader --> Cleaner[DataCleaner\n- Type casting\n- Null filtering]
-     Cleaner --> Metrics[MetricsCalculator\n- SMA_7d\n- Volatility (>\5%)\n- Top Winners]
-     Metrics --> DQ[DataQualityChecker\n- Run business logic checks]
-     DQ --> Processed[(Processed Parquet Data)]
+    Loader --> Cleaner["DataCleaner<br/>- Type casting<br/>- Null filtering"]
+    Cleaner --> Metrics["MetricsCalculator<br/>- SMA_7d<br/>- Volatility (> 5%)<br/>- Top Winners"]
+    Metrics --> DQ["DataQualityChecker<br/>- Run business logic checks"]
+    DQ --> Processed[(Processed Parquet Data)]
 ```
 
 ## How to Run
