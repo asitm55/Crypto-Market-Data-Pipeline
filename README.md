@@ -80,5 +80,3 @@ The `SchemaValidator` guarantees that data fits the expected format before persi
 Representative outputs are located in the `samples/` directory:
 - `samples/sample_assets.parquet`
 - `samples/sample_history_bitcoin.parquet`
-
-- 
