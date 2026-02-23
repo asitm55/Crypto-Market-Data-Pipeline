@@ -10,14 +10,14 @@ It fetches the top 50 assets by market cap and the last 20 days of historical da
 flowchart TD
     CLI[CLI Argument Parser/n--date / --dry-run] --> Main
     
-    Main --> Client[CoinCapClient\nFetches from rest.coincap.io/v3]
-    Client --> Retry[RetryHandler\nExponential Backoff + Jitter]
+    Main --> Client[CoinCapClient/nFetches from rest.coincap.io/v3]
+    Client --> Retry[RetryHandler/nExponential Backoff + Jitter]
     
-    Main --> Val[SchemaValidator\nEnforces types & nullability]
+    Main --> Val[SchemaValidator/nEnforces types & nullability]
     
-    Main --> Storage[StorageManager\nWrites Parquet files]
+    Main --> Storage[StorageManager/nWrites Parquet files]
     
-    Storage --> Disk[(Local File System\n/data/raw/)]
+    Storage --> Disk[(Local File System/n/data/raw/)]
 ```
 
 ## Setup Instructions
