@@ -50,8 +50,8 @@ s3://fintech-data-lake/
 1. **Isolation:** Deploy fixed transformation logic as a separate AWS Glue Job version.
 2. **Backfill DAG:** Create `backfill_sma_dag` configured with `catchup=True` in MWAA.
 3. **Shadow Table Write:** Write the output to a shadow path (`processed/fact_v2/`).
-4. **Validation Gate:** Assert random sample diffs < 0.01% between `v1` and `v2`.
-5. **Atomic Swap:** Leverage Apache Iceberg's metadata pointers to perform an atomic table branch swap, transitioning users from `v1` to `v2` with zero downtime.
+4. **Validation Gate:** Assert random sample diffs < 0.01% between `v1` (the old buggy production table) and `v2` (the newly backfilled shadow table).
+5. **Atomic Swap:** Leverage Apache Iceberg's metadata pointers to perform an atomic table branch swap. This instantly redirects all downstream queries from `v1` to `v2`, achieving the completely backfilled transition with zero downtime.
 
 ## 6. Architecture Diagram
 
