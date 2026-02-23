@@ -8,7 +8,7 @@ It fetches the top 50 assets by market cap and the last 20 days of historical da
 
 ```mermaid
 flowchart TD
-    CLI[CLI Argument Parser\n--date / --dry-run] --> Main
+    CLI[CLI Argument Parser/n--date / --dry-run] --> Main
     
     Main --> Client[CoinCapClient\nFetches from rest.coincap.io/v3]
     Client --> Retry[RetryHandler\nExponential Backoff + Jitter]
